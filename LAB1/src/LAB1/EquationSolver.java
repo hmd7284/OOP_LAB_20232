@@ -2,7 +2,7 @@ package LAB1;
 
 import java.util.Scanner;
 
-public class ex226 {
+public class EquationSolver {
     public static void FirstDegreeEquation() {
         Scanner input = new Scanner(System.in);
         double a = Utility.getValidDouble("Enter coefficient of x: ", input);

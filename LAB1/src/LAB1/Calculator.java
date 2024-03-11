@@ -2,7 +2,7 @@ package LAB1;
 
 import java.util.Scanner;
 
-public class ex225 {
+public class Calculator {
     public static void main(String[] args) {
         double num1;
         double num2;
