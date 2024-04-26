@@ -60,4 +60,20 @@ public abstract class Media {
     public boolean isMatch(String title) {
         return this.getTitle().equals(title);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        Media other = (Media) o;
+        if (this.getTitle() == null) {
+            return other.getTitle() == null;
+        } else {
+            return title.equals(other.title);
+        }
+    }
 }

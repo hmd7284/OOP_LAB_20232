@@ -2,11 +2,7 @@ package AimsProject.hust.soict.globalict.aims.media;
 
 public class Track implements Playable {
     private final String title;
-    private int length;
-
-    public Track(String title) {
-        this.title = title;
-    }
+    private final int length;
 
     public Track(String title, int length) {
         this.title = title;
@@ -32,6 +28,28 @@ public class Track implements Playable {
     }
 
     public String toString() {
-        return this.getTitle() + ", " + this.getLength();
+        return this.getTitle() + " - " + this.getLength();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        Track other = (Track) o;
+        if (this.getTitle() == null) {
+            if (other.title != null) {
+                return false;
+            }
+        } else if (!title.equals(other.title)) {
+            return false;
+        }
+        return length == other.getLength();
     }
 }

@@ -9,6 +9,11 @@ public class Book extends Media {
         super(id, title, category, cost);
     }
 
+    public Book(int id, String title, String category, float cost, ArrayList<String> authors) {
+        super(id, title, category, cost);
+        this.authors = authors;
+    }
+
     public ArrayList<String> getAuthors() {
         return authors;
     }
@@ -34,6 +39,7 @@ public class Book extends Media {
             System.out.println("Author " + authorName + " is not associated with the book.");
         }
     }
+
     public String toString() {
         return "BOOK - " + this.getId() + " - " + this.getTitle() + " - " + this.getCategory() + " - " + this.getAuthors() + ": " + this.getCost() + " $";
     }

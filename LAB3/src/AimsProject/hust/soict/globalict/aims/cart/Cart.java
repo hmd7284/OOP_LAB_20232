@@ -19,7 +19,7 @@ public class Cart {
                 System.out.println("The item has been added to the cart");
             }
         } else {
-            System.out.println("Invalid item");
+            System.out.println("This media item is not available in store");
         }
     }
 
@@ -29,9 +29,9 @@ public class Cart {
         } else {
             if (itemsOrdered.contains(media)) {
                 itemsOrdered.remove(media);
-                System.out.println("The item has been removed from the cart");
+                System.out.println("The media item has been removed from the cart");
             } else {
-                System.out.println("The item is not in the cart");
+                System.out.println("The media item is not in the cart");
             }
         }
     }
@@ -50,34 +50,29 @@ public class Cart {
         System.out.println("********************************CART********************************");
         System.out.println("Ordered Items:");
         for (Media item : itemsOrdered) {
-            System.out.println(itemsOrdered.indexOf(item) + 1 + ". " + item.toString());
+            System.out.println(item.toString());
 
         }
-        System.out.println("Total cost: " + this.totalCost());
+        System.out.println("Total cost: " + this.totalCost() + " $");
         System.out.println("********************************************************************");
     }
 
-    public void searchCartByTitle(String title) {
-        int flag = 0;
+    public Media searchCart(String title) {
         for (Media item : itemsOrdered) {
             if (item.isMatch(title)) {
-                flag = 1;
-                System.out.println(itemsOrdered.indexOf(item) + 1 + ". " + item);
+                return item;
             }
         }
-        if (flag == 0) {
-            System.out.println("There is no item that has given title");
-        }
+        return null;
     }
 
-    public void searchCartById(int id) {
-        if (id < 0 || id > itemsOrdered.size()) {
-            System.out.println("There is no item that has given id");
-        } else if (itemsOrdered.get(id) != null) {
-            System.out.println(id + 1 + ". " + itemsOrdered.get(id).toString());
-        } else {
-            System.out.println("There is no item that has given id");
+    public Media searchCart(int id) {
+        for (Media item : itemsOrdered) {
+            if (item.getId() == id) {
+                return item;
+            }
         }
+        return null;
     }
 
     public void sortCartByTitle() {
@@ -86,5 +81,9 @@ public class Cart {
 
     public void sortCartByCost() {
         Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
+    }
+
+    public int sizeCart() {
+        return itemsOrdered.size();
     }
 }

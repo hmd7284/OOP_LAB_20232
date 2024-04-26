@@ -41,4 +41,13 @@ public class Store {
         }
         System.out.println("*********************************************************************");
     }
+
+    public Media searchStore(String title) {
+        for (Media item : itemsInStore) {
+            if (item.isMatch(title)) {
+                return item;
+            }
+        }
+        return null;
+    }
 }

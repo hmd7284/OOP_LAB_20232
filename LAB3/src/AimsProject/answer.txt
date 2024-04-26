@@ -1,0 +1,49 @@
+14. Question:
+- Which classes are aggregates of other classes?
+Checking all constructors of whole classes if they initialize for their parts?
+- Write constructors for parent and child classes. Remove redundant setter methods if any
+
+Answer:
+
+- Cart is aggregate of Media. Store is aggregate of Media. CompactDisc is aggregate of Track
+- Implemented in code
+
+15. Question:
+When overriding the equals() method of the Object class, you will have to cast the Object
+parameter obj to the type of Object that you are dealing with. For example, in the Media class,
+you must cast the Object obj to a Media, and then check the equality of the two objects’ attributes
+as the above requirements (i.e. title for Media; title and length for Track). If the
+passing object is not an instance of Media, what happens?
+
+Answer:
+
+If the passed object is not an instance of Media, equals() will return false.
+This imply that the 2 objects are not equal because they belong to different classes or incompatible types.
+
+16. Reading assignment:
+- What are the advantages of Polymorphism?
+- How is Inheritance useful to achieve Polymorphism in Java?
+- What are the differences between Polymorphism and Inheritance in Java?
+
+Answer:
+
+- Advantages of polymorphism:
+    + Reusability: provides reusability for code, as methods with the same name can be used in different classes.
+    + Complexity reduction: Reduce the complexity of code by allowing the use of the same method name for related functionality.
+    + Simplified code: Reducing the number of constructors and method that need to be written.
+    + Better Organization: Allows better code organization by grouping related functionality in one class.
+    + Extensibility: New subclasses can be created to extend the functionality of the superclass without modifying existing code.
+
+- Inheritance lets us inherit attributes and methods from another class. Polymorphism uses those inherited methods to perform different tasks, allow us to perform action in different ways.
+
+- Differences between Inheritance and Polymorphism:
++ Inheritance:
+    --Inheritance is when a new class is created (derived class) that inherits the features of existing class (base class).
+    --Applied to classes.
+    --Supports the code reusability in OOP
+    --Can be single, hybrid, multiple, hierarchical and multilevel inheritance.
+
++ Polymorphism:
+    --Can be defined in multiple forms.
+    --Applied to functions and methods.
+    --Allows the object to decide which form of the function to implement at compile-time (overloading) or run-time (overriding). 
