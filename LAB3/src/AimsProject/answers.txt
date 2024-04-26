@@ -47,3 +47,16 @@ Answer:
     --Can be defined in multiple forms.
     --Applied to functions and methods.
     --Allows the object to decide which form of the function to implement at compile-time (overloading) or run-time (overriding). 
+
+17. Question:
+- What class should implement the Comparable interface? 
+- In those classes, how should you implement the compareTo()method to reflect the ordering that we want? 
+- Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach? 
+- Suppose the DVDs have a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
+
+Answer:
+
+- Class Media should implement the Comparable interface
+- The compareTo() method should return a positive integer, zero or a negative integer if the current object is greater than, equal to or less than the specified object, respectively
+- No, we can't because the Comparable interface is used for internal comparison and can only be Implemented once by class Media
+- I will override the compareTo() method in DigitalVideoDisc
