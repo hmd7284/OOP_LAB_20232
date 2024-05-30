@@ -1,19 +1,30 @@
 package AimsProject.hust.soict.globalict.aims.cart;
 
+import AimsProject.hust.soict.globalict.aims.exception.LimitExceededException;
+import AimsProject.hust.soict.globalict.aims.exception.PlayerException;
 import AimsProject.hust.soict.globalict.aims.media.Media;
+import AimsProject.hust.soict.globalict.aims.media.Playable;
 import AimsProject.hust.soict.globalict.aims.store.Store;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class Cart {
     public static int MAX_NUMBERS_ORDERED = 20;
-    private final ArrayList<Media> itemsOrdered = new ArrayList<>();
+    //private final ArrayList<Media> itemsOrdered = new ArrayList<>();
 
-    public void addMedia(Media media, Store store) {
+    private final ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
+
+    public ObservableList<Media> getItemsOrdered() {
+        return itemsOrdered;
+    }
+
+    public void addMedia(Media media, Store store) throws LimitExceededException {
         if (store.itemsInStore.contains(media)) {
-            if (itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
-                System.out.println("The cart is almost full");
+            if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
+                //System.out.println("The cart is almost full");
+                throw new LimitExceededException("ERROR: The cart is almost full!");
             } else {
                 itemsOrdered.add(media);
                 System.out.println("The item has been added to the cart");
@@ -85,5 +96,13 @@ public class Cart {
 
     public int sizeCart() {
         return itemsOrdered.size();
+    }
+
+    public void playMedia(String title) throws PlayerException {
+        for (Media item : itemsOrdered) {
+            if (item.getTitle().equals(title)) {
+                ((Playable) item).play();
+            }
+        }
     }
 }

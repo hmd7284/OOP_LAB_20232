@@ -1,5 +1,7 @@
 package AimsProject.hust.soict.globalict.aims.media;
 
+import AimsProject.hust.soict.globalict.aims.exception.PlayerException;
+
 import java.util.ArrayList;
 
 public class CompactDisc extends Disc implements Playable {
@@ -57,16 +59,25 @@ public class CompactDisc extends Disc implements Playable {
         return "CD - " + this.getId() + " - " + this.getTitle() + " - " + this.getCategory() + " - " + this.getArtist() + " - " + this.getLength() + ": " + this.getCost() + " $\n" + "Track list:\n" + this.tracks;
     }
 
-    @Override
-    public void play() {
-        if (tracks.isEmpty()) {
-            System.out.println("This track can't be played");
-        } else {
-            for (Track track : tracks) {
-                System.out.print("Track " + tracks.indexOf(track) + 1 + ": ");
-                track.play();
+    public StringBuffer play() throws PlayerException {
+        if (this.getLength() > 0) {
+            System.out.println("Playing CD: " + this.getTitle());
+            System.out.println("CD length: " + this.getLength());
+
+            StringBuffer information = new StringBuffer();
+            information.append("Playing CD: ").append(this.getTitle()).append("\n").append("CD length: ").append(this.getLength()).append("\n");
+
+            for (Track t : tracks) {
+                try {
+                    StringBuffer trackInfo = t.play();
+                    information.append(trackInfo).append("\n");
+                } catch (PlayerException e) {
+                    throw e;
+                }
             }
+            return information;
+        } else {
+            throw new PlayerException("ERROR: CD length is non-positive! This CD can't be played");
         }
     }
-
 }

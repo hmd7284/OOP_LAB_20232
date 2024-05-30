@@ -1,6 +1,8 @@
 package AimsProject.hust.soict.globalict.aims.store;
 
+import AimsProject.hust.soict.globalict.aims.exception.PlayerException;
 import AimsProject.hust.soict.globalict.aims.media.Media;
+import AimsProject.hust.soict.globalict.aims.media.Playable;
 
 import java.util.ArrayList;
 
@@ -53,5 +55,17 @@ public class Store {
             }
         }
         return null;
+    }
+
+    public void playMedia(String title) throws PlayerException {
+        for (Media item : itemsInStore) {
+            if (item.getTitle().equals(title)) {
+                try {
+                    ((Playable) item).play();
+                } catch (PlayerException e) {
+                    throw e;
+                }
+            }
+        }
     }
 }

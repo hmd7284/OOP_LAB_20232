@@ -6,14 +6,16 @@ import java.util.Comparator;
 
 public class MediaComparatorByCostTitle implements Comparator<Media> {
     public int compare(Media m1, Media m2) {
-        Float cost1 = m1.getCost();
-        Float cost2 = m2.getCost();
-        int cmp = cost1.compareTo(cost2);
-        if (cmp != 0) {
-            return cmp;
+        try {
+            float costDifference = m1.getCost() - m2.getCost();
+            if (costDifference > 0) {
+                return 1;
+            } else if (costDifference < 0) {
+                return -1;
+            }
+            return m1.getTitle().compareTo(m2.getTitle());
+        } catch (NullPointerException e) {
+            return -1;
         }
-        String title1 = m1.getTitle();
-        String title2 = m2.getTitle();
-        return title1.compareTo(title2);
     }
 }

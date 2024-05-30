@@ -1,6 +1,8 @@
 package AimsProject.hust.soict.globalict.aims;
 
 import AimsProject.hust.soict.globalict.aims.cart.Cart;
+import AimsProject.hust.soict.globalict.aims.exception.LimitExceededException;
+import AimsProject.hust.soict.globalict.aims.exception.PlayerException;
 import AimsProject.hust.soict.globalict.aims.media.*;
 import AimsProject.hust.soict.globalict.aims.store.Store;
 
@@ -97,7 +99,7 @@ public class Aims {
         System.out.print("Please choose a number: 0-1-2-3-4-5: ");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PlayerException {
         Random rand = new Random();
         Store store = new Store();
         Cart cart = new Cart();
@@ -157,18 +159,17 @@ public class Aims {
                                             storeMenu();
                                             break;
                                         case 1:
-                                            cart.addMedia(storeMedia, store);
+                                            try {
+                                                cart.addMedia(storeMedia, store);
+                                            } catch (LimitExceededException e) {
+                                                e.printStackTrace();
+                                                System.out.println(e.getMessage());
+                                            }
                                             System.out.println("Updated cart:");
                                             cart.printCart();
                                             break;
                                         case 2:
-                                            if (storeMedia instanceof DigitalVideoDisc tempMedia) {
-                                                tempMedia.play();
-                                            } else if (storeMedia instanceof CompactDisc tempMedia) {
-                                                tempMedia.play();
-                                            } else {
-                                                System.out.println("This media can't be played");
-                                            }
+                                            store.playMedia(title);
                                             break;
                                         default:
                                             System.out.println("Invalid option! Please choose between 0, 1 and 2");
@@ -187,7 +188,12 @@ public class Aims {
                                         System.out.println("This media item is not in the store");
                                     }
                                 } while (storeMedia == null);
-                                cart.addMedia(storeMedia, store);
+                                try {
+                                    cart.addMedia(storeMedia, store);
+                                } catch (LimitExceededException e) {
+                                    e.printStackTrace();
+                                    System.out.println(e.getMessage());
+                                }
                                 System.out.println("The cart now contains " + cart.sizeCart() + " media items:");
                                 cart.printCart();
                                 break;
@@ -202,13 +208,7 @@ public class Aims {
                                         System.out.println("This media item is not in the store");
                                     }
                                 } while (storeMedia == null);
-                                if (storeMedia instanceof DigitalVideoDisc tempMedia) {
-                                    tempMedia.play();
-                                } else if (storeMedia instanceof CompactDisc tempMedia) {
-                                    tempMedia.play();
-                                } else {
-                                    System.out.println("This media can't be played");
-                                }
+                                store.playMedia(title);
                                 break;
                             case 4:
                                 do {
@@ -324,14 +324,7 @@ public class Aims {
                                                     System.out.println("The media item is not in the cart");
                                                 }
                                             } while (cartMedia == null);
-                                            if (cartMedia instanceof DigitalVideoDisc tempMedia) {
-                                                tempMedia.play();
-                                            } else if (cartMedia instanceof CompactDisc tempMedia) {
-                                                tempMedia.play();
-                                            } else {
-                                                System.out.println("This media item can't be played");
-                                            }
-
+                                            cart.playMedia(title);
                                             break;
                                         case 5:
 
@@ -646,14 +639,7 @@ public class Aims {
                                         System.out.println("The media item is not in the cart");
                                     }
                                 } while (cartMedia == null);
-                                if (cartMedia instanceof DigitalVideoDisc tempMedia) {
-                                    tempMedia.play();
-                                } else if (cartMedia instanceof CompactDisc tempMedia) {
-                                    tempMedia.play();
-                                } else {
-                                    System.out.println("This media item can't be played");
-                                }
-
+                                cart.playMedia(title);
                                 break;
                             case 5:
 

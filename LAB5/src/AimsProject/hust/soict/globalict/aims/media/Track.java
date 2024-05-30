@@ -1,5 +1,7 @@
 package AimsProject.hust.soict.globalict.aims.media;
 
+import AimsProject.hust.soict.globalict.aims.exception.PlayerException;
+
 public class Track implements Playable {
     private final String title;
     private final int length;
@@ -17,39 +19,29 @@ public class Track implements Playable {
         return length;
     }
 
-    @Override
-    public void play() {
-        if (this.getLength() > 0) {
-            System.out.println("Playing track: " + this.getTitle());
-            System.out.println("Track length: " + this.getLength());
-        } else {
-            System.out.println("This track can't be played");
-        }
-    }
-
     public String toString() {
         return this.getTitle() + " - " + this.getLength();
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null) {
+        try {
+            return this.title.equals(((Track) o).getTitle()) && this.length == ((Track) o).getLength();
+        } catch (ClassCastException e) {
             return false;
         }
-        if (getClass() != o.getClass()) {
-            return false;
+    }
+
+    public StringBuffer play() throws PlayerException {
+        if (this.getLength() > 0) {
+            System.out.println("Playing track: " + this.getTitle());
+            System.out.println("Track length: " + this.getLength());
+
+            StringBuffer info = new StringBuffer();
+            info.append("Playing track: ").append(this.getTitle()).append("\n").append("Track length: ").append(this.getLength());
+            return info;
+        } else {
+            throw new PlayerException("ERROR: Track length is non-positive! This track can't be played");
         }
-        Track other = (Track) o;
-        if (this.getTitle() == null) {
-            if (other.title != null) {
-                return false;
-            }
-        } else if (!title.equals(other.title)) {
-            return false;
-        }
-        return length == other.getLength();
     }
 }
